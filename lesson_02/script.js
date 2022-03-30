@@ -1,20 +1,12 @@
 'use strict';
 {
-    const productName = 'Hewlet-Packard';
-    const productCount = 5;
-    const productCategory = 'Мониторы';
-    const productPrice = 50000;
+    const productName = prompt('Наименование товара:');
+    const productCount = +prompt('Количество товара:');
+    const productCategory = prompt('Категория товара:');
+    const productPrice = +prompt('Цена товара:');
     
-    console.log(productName);
-    console.log('Сумма: ' + productPrice*productCount);
-}
-
-{
-    const productName = 'Samsung S10';
-    const productCount = 10;
-    const productCategory = 'Смартфоны';
-    const productPrice = 40000;
-
-    console.log(productName);
-    console.log('Сумма: ' + productPrice*productCount);
+    console.log(typeof productName);
+    console.log(typeof productCount);
+    console.log(typeof productCategory);
+    console.log(typeof productPrice);    
 }
