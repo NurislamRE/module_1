@@ -3,8 +3,8 @@
 const getMin = (x, y) => {
     const z = (x + y) / 2;
 
-    const max = z + Math.abs(x - y)/2;
-    const min = z - Math.abs(x - y)/2;
+    const min = z + (x - y)/2;
+    const max = z - (x - y)/2;
     return min;
 }
 
