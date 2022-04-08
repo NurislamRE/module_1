@@ -1,76 +1,36 @@
 'use strict';
 
 (() => {
-    const figuresEng = ['rock', 'scissors', 'paper'];
-    const figuresRu = ['камень', 'ножницы', 'бумага'];
+    const optionEng = ['rock', 'scissors', 'paper'];
+    const optionRu = ['камень', 'ножницы', 'бумага'];
 
-    //#region Language 
-    const promtByLang = lang => {
-        if (lang === 'Eng' || lang === 'En') 
-            return 'Choose: rock, scissors, paper';
-        
-        return 'Выберите: камень, ножницы, бумага';                      
+    const gameLanguageEng = {
+        figures: 'rock, scissors, paper',
+        prompt: 'Choose: rock, scissors, paper',
+        incorrectPrompt: 'You have entered incorrect data!',
+        draw: 'A draw! You both chose: ',
+        won: `You've won! You chose: `,
+        lose: `You've lost! You chose: `,
+        compChoose: 'computer chose: ',
+        gameAgain: 'Still want to play?',
+        resultComp: `Result: 
+        Computer won: `,
+        resultYou: 'You won: ',
+    };
+    const gameLanguageRu = {
+        figures: 'камень, ножницы, бумага',
+        prompt: 'Выберите: камень, ножницы, бумага',
+        incorrectPrompt: 'Вы ввели некорректные данные!',
+        draw: 'Ничья! Вы оба выбрали: ',
+        won: 'Вы выиграли! Вы выбрали: ',
+        lose: 'Вы проиграли! Вы выбрали: ',
+        compChoose: 'компьютер выбрал: ',
+        gameAgain: 'Еще хотите поиграть?',
+        resultComp: `Результат: 
+        Компьютер выиграл: `,
+        resultYou: 'Вы выиграли: '
     };
 
-    const incorrectValueByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return 'You have entered incorrect data!';
-
-        return 'Вы ввели некорректные данные!';
-    }
-
-    const drawByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return 'A draw! You both chose: ';
-
-        return 'Ничья! Вы оба выбрали: ';
-    }
-
-    const wonByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return `You've won! You chose: `;
-
-        return 'Вы выиграли! Вы выбрали: ';
-    }
-
-    const loseByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return `You've lost! You chose: `;
-
-        return 'Вы проиграли! Вы выбрали: ';
-    }
-
-    const computerChooseByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return `computer chose: `;
-
-        return 'компьютер выбрал: ';
-    }
-
-    const gameAgainByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return 'Still want to play?';
-
-        return 'Еще хотите поиграть?';
-    }
-
-    const resultCompByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return `Result: 
-                Computer won: `;
-
-        return `Результат: 
-            Компьютер выиграл: `;
-    }
-
-    const resultYouByLang = lang => {
-        if (lang === 'Eng' || lang === 'En')
-            return `You won: `;
-
-        return `Вы выиграли: `;
-    }
-//#endregion
-    
     const getRandomIntInclusive = (min, max) => {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -78,19 +38,19 @@
     };
 
     const getFigureByIndex = (index, lang) => {
-        let indexValue = figuresRu;
+        let indexValue = optionRu;
         
         if (lang === 'En' || lang === 'Eng')
-            indexValue = figuresEng;
+            indexValue = optionEng;
         
         return indexValue[index];
     };
 
     const getIndex = (value, lang) => {
         if (lang === 'En' || lang === 'Eng')
-            return figuresEng.findIndex(item => item.substring(0, 1).includes(value));
+            return optionEng.findIndex(item => item.substring(0, 1).includes(value));
 
-        return figuresRu.findIndex(item => item.substring(0, 1).includes(value));
+        return optionRu.findIndex(item => item.substring(0, 1).includes(value));
     };
 
     const game = lang => {
@@ -100,10 +60,15 @@
         };
 
         return function Start() {
-            const playerValue = prompt(`${promtByLang(lang)}`);
+            let arrByLang = gameLanguageRu;
+
+            if(lang === 'Eng' || lang === 'En')
+                arrByLang = gameLanguageEng;
+
+            const playerValue = prompt(`${arrByLang['prompt']}`);
             
             if (playerValue < 0) {
-                alert(`${incorrectValueByLang(lang)}`);
+                alert(`${arrByLang['incorrectPrompt']}`);
                 return Start();
             }        
             const subPlayerValue = playerValue.substring(0, 1);
@@ -111,32 +76,32 @@
             const playerIndex = getIndex(subPlayerValue, lang);        
         
             if (playerIndex < 0) {
-                alert(`${incorrectValueByLang(lang)}`);
+                alert(`${arrByLang['incorrectPrompt']}`);
                 return Start();
             }
 
             const botIndex = getRandomIntInclusive(0, 2);
 
             if (playerIndex === botIndex) {
-                alert(`${drawByLang(lang)} ${getFigureByIndex(playerIndex, lang)}`);
+                alert(`${arrByLang['draw']} ${getFigureByIndex(playerIndex, lang)}`);
                 return Start();
             }
                         
             if ((playerIndex === 0 && botIndex === 1) || (playerIndex === 1 && botIndex === 2) || (playerIndex === 2 && botIndex === 0)) {
                 result.player++;
-                alert(`${wonByLang(lang)} ${getFigureByIndex(playerIndex, lang)}, ${computerChooseByLang(lang)} ${getFigureByIndex(botIndex, lang)}`);
+                alert(`${arrByLang['won']} ${getFigureByIndex(playerIndex, lang)}, ${arrByLang['compChoose']} ${getFigureByIndex(botIndex, lang)}`);
             } else {
                 result.computer++;
-                alert(`${loseByLang(lang)} ${getFigureByIndex(playerIndex, lang)}, ${computerChooseByLang(lang)} ${getFigureByIndex(botIndex, lang)}`);
+                alert(`${arrByLang['lose']} ${getFigureByIndex(playerIndex, lang)}, ${arrByLang['compChoose']} ${getFigureByIndex(botIndex, lang)}`);
             }
             
-            const gameAgain = confirm(`${gameAgainByLang(lang)}`);
+            const gameAgain = confirm(`${arrByLang['gameAgain']}`);
             console.log(gameAgain);
             if (gameAgain) 
                 return Start();
             else 
-                alert(`${resultCompByLang(lang)} ${result.player}
-                    ${resultYouByLang(lang)} ${result.computer}`);
+                alert(`${arrByLang['resultComp']} ${result.player}
+                    ${arrByLang['resultYou']} ${result.computer}`);
         };        
     };      
 
