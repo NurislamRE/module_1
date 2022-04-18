@@ -52,6 +52,7 @@
 
             if (balls.playerBalls < 1) {
                 const gameAgain = confirm('Вы проиграли! Хотите еще поиграть?');
+                console.log(gameAgain);
                 if(gameAgain) {
                     balls.playerBalls = 5;
                     balls.computerBalls = 5;
@@ -62,6 +63,7 @@
             } else {
                 if (balls.computerBalls < 1) {
                     const gameAgain = confirm('Вы выиграли! Хотите еще поиграть?');
+                    console.log(gameAgain);
                     if(gameAgain) {
                         balls.playerBalls = 5;
                         balls.computerBalls = 5;                                                

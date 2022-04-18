@@ -92,11 +92,19 @@
             if (isPlayerWin(botIndex, playerIndex)) {
                 alert(`${arrByLang['won']} ${getFigureByIndex(playerIndex, lang)}, ${arrByLang['compChoose']} ${getFigureByIndex(botIndex, lang)}`);
                 const startMarble = window.Marble(true);
-                startMarble();
+                try{
+                    startMarble();
+                } catch{
+
+                }
             } else {                
                 alert(`${arrByLang['lose']} ${getFigureByIndex(playerIndex, lang)}, ${arrByLang['compChoose']} ${getFigureByIndex(botIndex, lang)}`);
                 const startMarble = window.Marble(false);
-                startMarble();
+                try{
+                    startMarble();
+                } catch{
+
+                }
             }
         };        
     };      
